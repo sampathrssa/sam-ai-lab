@@ -1,19 +1,36 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require("firebase-functions");
+const express = require("express");
+const cors = require("cors");
+const { Configuration, OpenAIApi } = require("openai");
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+const app = express();
+app.use(cors({ origin: true }));
+app.use(express.json());
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+const configuration = new Configuration({
+  apiKey: functions.config().openai.key
+});
+const openai = new OpenAIApi(configuration);
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+app.post("/process", async (req, res) => {
+  const text = req.body.text;
+
+  const completion = await openai.createChatCompletion({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "system",
+        content: "You're a mind map assistant. Extract key ideas from spoken input and organize them into Mermaid.js mind map syntax. Use 'graph TD' format."
+      },
+      {
+        role: "user",
+        content: text
+      }
+    ]
+  });
+
+  const mindmap = completion.data.choices[0].message.content;
+  res.json({ mindmap });
+});
+
+exports.api = functions.https.onRequest(app);

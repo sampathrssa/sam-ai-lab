@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Voice-to-Mind Map</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #graph {
+      margin-top: 30px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎙️ Speak to Build a Mind Map</h2>
+  <button onclick="startRecognition()">Start Talking</button>
+  <p id="output"></p>
+  <div id="graph"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
