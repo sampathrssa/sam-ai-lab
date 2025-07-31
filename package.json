@@ -1,10 +1,10 @@
 {
-    "name": "sam-ai-lab",
-    "version": "1.0.0",
-    "description": "Sam AI Innovation Lab - Static Hosting",
-    "scripts": {
-      "build": "echo 'No build step required for static site'"
-    },
-    "license": "MIT"
-  }
-  
+  "name": "sam-ai-lab",
+  "version": "1.0.0",
+  "description": "Sam AI Innovation Lab – Smartsoft Future Devs Showcase",
+  "scripts": {
+    "build": "echo '✅ No frontend build required for static site'"
+  },
+  "license": "MIT",
+  "private": true
+}
